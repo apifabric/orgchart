@@ -1,0 +1,62 @@
+<o-form-layout-manager attr="Employee" mode="tab" title="EMPLOYEE">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="EmployeeTable" 
+            service="Employee" 
+            entity="Employee" 
+            title="EMPLOYEE"
+            keys="id"
+            columns="first_name;department_id;manager_id;position_id;last_name;id" 
+            header-actions="R;D"
+            visible-columns="first_name;department_id;manager_id;position_id;last_name;id"  
+            sort-columns="first_name" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #first_name attr="first_name" title=" first_name*" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column attr="department_id" title="department_id">
+    <o-table-cell-renderer-service attr="department_id" 
+        service="Department" entity="DepartmentType" columns="id;name"
+        parent-keys="id:department_id"
+        value-column="name" keys="department_id"
+        visible-columns="name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="manager_id" title="manager_id">
+    <o-table-cell-renderer-service attr="manager_id" 
+        service="Employee" entity="EmployeeType" columns="id;first_name"
+        parent-keys="id:manager_id"
+        value-column="first_name" keys="manager_id"
+        visible-columns="first_name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column attr="position_id" title="position_id">
+    <o-table-cell-renderer-service attr="position_id" 
+        service="Position" entity="PositionType" columns="id;id"
+        parent-keys="id:position_id"
+        value-column="id" keys="position_id"
+        visible-columns="id" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #last_name attr="last_name" title="last_name" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

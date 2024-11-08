@@ -1,0 +1,300 @@
+about:
+  date: November 08, 2024 05:53:36
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 10
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Assignment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: employee_id
+    - name: project_id
+    description: Link table representing employee assignments to projects.
+    info_list: Link table representing employee assignments to projects.
+    tab_groups:
+    - direction: toone
+      fks:
+      - employee_id
+      name: employee
+      resource: Employee
+    - direction: toone
+      fks:
+      - project_id
+      name: project
+      resource: Project
+    type: Assignment
+    user_key: id
+  Benefit:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: description
+    - name: id
+    description: Table representing benefit offerings within the company.
+    info_list: Table representing benefit offerings within the company.
+    type: Benefit
+    user_key: name
+  Department:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: id
+    description: Table representing different departments within the organization.
+    info_list: Table representing different departments within the organization.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - department_id
+      name: EmployeeList
+      resource: Employee
+    type: Department
+    user_key: name
+  Employee:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      search: true
+      sort: true
+    - name: department_id
+    - name: manager_id
+    - name: position_id
+    - name: last_name
+    - name: id
+    description: Table representing employees including their hierarchical info.
+    info_list: Table representing employees including their hierarchical info.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - employee_id
+      name: AssignmentList
+      resource: Assignment
+    - direction: tomany
+      fks:
+      - manager_id
+      name: EmployeeList
+      resource: Employee
+    - direction: tomany
+      fks:
+      - employee_id
+      name: EmployeeSkillList
+      resource: EmployeeSkill
+    - direction: tomany
+      fks:
+      - employee_id
+      name: EmployeeTrainingList
+      resource: EmployeeTraining
+    - direction: tomany
+      fks:
+      - employee_id
+      name: PerformanceReviewList
+      resource: PerformanceReview
+    - direction: toone
+      fks:
+      - department_id
+      name: department
+      resource: Department
+    - direction: toone
+      fks:
+      - manager_id
+      name: manager_
+      resource: Employee
+    - direction: toone
+      fks:
+      - position_id
+      name: position
+      resource: Position
+    type: Employee
+    user_key: first_name
+  EmployeeSkill:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: employee_id
+    - name: skill_id
+    description: Link table connecting employees to their skills.
+    info_list: Link table connecting employees to their skills.
+    tab_groups:
+    - direction: toone
+      fks:
+      - employee_id
+      name: employee
+      resource: Employee
+    - direction: toone
+      fks:
+      - skill_id
+      name: skill
+      resource: Skill
+    type: EmployeeSkill
+    user_key: id
+  EmployeeTraining:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: employee_id
+    - name: training_id
+    description: Link table representing employee participation in training sessions.
+    info_list: Link table representing employee participation in training sessions.
+    tab_groups:
+    - direction: toone
+      fks:
+      - employee_id
+      name: employee
+      resource: Employee
+    - direction: toone
+      fks:
+      - training_id
+      name: training
+      resource: Training
+    type: EmployeeTraining
+    user_key: id
+  Office:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: location
+    description: Table representing offices in different locations.
+    info_list: Table representing offices in different locations.
+    type: Office
+    user_key: id
+  PerformanceReview:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: employee_id
+    - name: review_date
+      type: DATETIME
+    - name: score
+    description: Table representing performance reviews for employees.
+    info_list: Table representing performance reviews for employees.
+    tab_groups:
+    - direction: toone
+      fks:
+      - employee_id
+      name: employee
+      resource: Employee
+    type: PerformanceReview
+    user_key: id
+  Position:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: title
+    - name: salary_grade
+    description: Table representing job positions within the organization.
+    info_list: Table representing job positions within the organization.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - position_id
+      name: EmployeeList
+      resource: Employee
+    type: Position
+    user_key: id
+  Project:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: due_date
+      type: DATETIME
+    - name: id
+    description: Table representing projects employees are working on.
+    info_list: Table representing projects employees are working on.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - project_id
+      name: AssignmentList
+      resource: Assignment
+    type: Project
+    user_key: name
+  Skill:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: id
+    description: Table representing skills that employees can possess.
+    info_list: Table representing skills that employees can possess.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - skill_id
+      name: EmployeeSkillList
+      resource: EmployeeSkill
+    type: Skill
+    user_key: name
+  Training:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: title
+    - name: course_date
+      type: DATETIME
+    description: Table representing training sessions available for employees.
+    info_list: Table representing training sessions available for employees.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - training_id
+      name: EmployeeTrainingList
+      resource: EmployeeTraining
+    type: Training
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

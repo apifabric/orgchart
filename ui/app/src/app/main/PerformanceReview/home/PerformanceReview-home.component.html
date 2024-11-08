@@ -1,0 +1,44 @@
+<o-form-layout-manager attr="PerformanceReview" mode="tab" title="PERFORMANCEREVIEW">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="PerformanceReviewTable" 
+            service="PerformanceReview" 
+            entity="PerformanceReview" 
+            title="PERFORMANCEREVIEW"
+            keys="id"
+            columns="id;employee_id;review_date;score" 
+            header-actions="R;D"
+            visible-columns="id;employee_id;review_date;score"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="employee_id" title="employee_id">
+    <o-table-cell-renderer-service attr="employee_id" 
+        service="Employee" entity="EmployeeType" columns="id;first_name"
+        parent-keys="id:employee_id"
+        value-column="first_name" keys="employee_id"
+        visible-columns="first_name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-date-input #review_date attr="review_date" type="timestamp" label="review_date" editable="no" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-column #score attr="score" title="score" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>
